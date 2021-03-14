@@ -3,6 +3,7 @@ package backend.restapp.controller;
 
 import backend.restapp.model.Tools;
 import backend.restapp.repo.ToolsRepo;
+import backend.restapp.service.ToolsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,71 +17,38 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class ToolsController {
+
     @Autowired
-    ToolsRepo toolsRepo;
+    private ToolsRepo toolsRepo;
+
+    @Autowired
+    private ToolsService toolsService;
+
+
     @GetMapping("/tools")
-    public ResponseEntity<List<Tools>> getAllTools(@RequestParam(required = false) String title) {
-        try {
-            List<Tools> tools = new ArrayList<>();
-            if (title == null)
-                tools.addAll(toolsRepo.findAll());
-            if (tools.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(tools, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<List<Tools>> getTools(@RequestParam(required = false) String title) {
+        return toolsService.getAllTools(title);
     }
 
     @GetMapping("/tools/{id}")
     public ResponseEntity<Tools> getToolsById(@PathVariable("id") long id) {
-        Optional<Tools> toolsData = toolsRepo.findById(id);
-        if (toolsData.isPresent()) {
-            return new ResponseEntity<>(toolsData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return toolsService.getToolByID(id);
     }
 
     @PostMapping("/tools")
     public ResponseEntity<Tools> createTools(@RequestBody Tools tools) {
-        try {
-            Tools newTools = toolsRepo.save(new Tools(
-                    tools.getToolName(),
-                    tools.getDateOfTools(),
-                    tools.getCost()));
-
-            return new ResponseEntity<>(newTools, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return toolsService.createTools(tools);
     }
 
     @PutMapping("/tools/{id}")
     public ResponseEntity<Tools> update(@PathVariable("id") long id,
                                         @RequestBody Tools tools) {
-        Optional<Tools> toolsData = toolsRepo.findById(id);
-
-        if (toolsData.isPresent()) {
-            Tools modifyTools = toolsData.get();
-            modifyTools.setToolName(tools.getToolName());
-            modifyTools.setDateOfTools(tools.getDateOfTools());
-            modifyTools.setCost(tools.getCost());
-            return new ResponseEntity<>(toolsRepo.save(modifyTools), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return toolsService.updateTool(id, tools);
     }
 
     @DeleteMapping("/tools{id}")
-    public ResponseEntity <HttpStatus> deleteTool(@PathVariable("id") long id){
-        try {
-            toolsRepo.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<HttpStatus> deleteTool(@PathVariable("id") long id) {
+        return toolsService.deleteTools(id);
     }
 }
+

@@ -9,7 +9,7 @@ import java.util.Date;
 public class Tools {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "ToolName", length = 64, nullable = false)
@@ -45,7 +45,6 @@ public class Tools {
     public Long getId() {
         return id;
     }
-
 
     public String getToolName() {
         return toolName;

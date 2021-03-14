@@ -2,27 +2,23 @@ package backend.restapp.controller;
 
 
 import backend.restapp.model.Tools;
-import backend.restapp.repo.ToolsRepo;
 import backend.restapp.service.ToolsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class ToolsController {
 
-    @Autowired
-    private ToolsRepo toolsRepo;
+    private final ToolsService toolsService;
 
-    @Autowired
-    private ToolsService toolsService;
+    public ToolsController(ToolsService toolsService) {
+        this.toolsService = toolsService;
+    }
 
 
     @GetMapping("/tools")

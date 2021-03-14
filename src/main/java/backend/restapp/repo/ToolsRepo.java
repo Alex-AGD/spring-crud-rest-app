@@ -8,5 +8,4 @@ import java.util.List;
 public interface ToolsRepo extends JpaRepository<Tools,Long> {
     List<Tools> findByToolName(String name);
 
-
 }

@@ -32,15 +32,6 @@ public class Tools {
         this.cost = cost;
     }
 
-    @Override
-    public String toString() {
-        return "Tools{" +
-                "id=" + id +
-                ", toolName='" + toolName + '\'' +
-                ", dateOfTools=" + dateOfTools +
-                ", cost=" + cost +
-                '}';
-    }
 
     public Long getId() {
         return id;

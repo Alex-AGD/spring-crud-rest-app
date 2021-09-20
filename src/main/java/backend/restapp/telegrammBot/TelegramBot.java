@@ -81,7 +81,12 @@ public class TelegramBot extends TelegramLongPollingBot {
 
             if (userName.equals("alexAGD")) {
                 sm.setChatId(chatId);
-                sm.setText("Зарова Леха Кодер!");
+                if (update.getMessage().getText().equals("Привет")
+                        || update.getMessage().getText().equals("Дарова")) {
+                    sm.setText("Здарова Леха Кодер!");
+                } else {
+                    sm.setText("Не понимаю, что надо?!");
+                }
             }
 
             try {

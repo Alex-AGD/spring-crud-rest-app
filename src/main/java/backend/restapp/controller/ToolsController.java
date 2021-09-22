@@ -1,6 +1,7 @@
 package backend.restapp.controller;
 
 import backend.restapp.model.Tools;
+import backend.restapp.repo.ToolsRepo;
 import backend.restapp.service.ToolsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +16,22 @@ import java.util.List;
 public class ToolsController {
 
     private final ToolsService toolsService;
+    private final ToolsRepo toolsRepo;
 
-    public ToolsController(ToolsService toolsService) {
+    public ToolsController(ToolsService toolsService, ToolsRepo toolsRepo) {
         this.toolsService = toolsService;
+        this.toolsRepo = toolsRepo;
     }
 
 
     @GetMapping("/tools")
     public ResponseEntity<List<Tools>> getTools(@RequestParam(required = false) String title) {
         return toolsService.getAllTools(title);
+    }
+
+    @GetMapping("/toolAllDB")
+    public Long getAllTools(@RequestParam(required = false) String titles) {
+        return toolsRepo.fgh("Газпром");
     }
 
     @GetMapping("/tools/{id}")

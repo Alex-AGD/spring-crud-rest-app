@@ -38,11 +38,8 @@ public class ToolsService {
 
     public ResponseEntity<Tools> getToolByID(long id) {
         Optional<Tools> toolsData = toolsRepo.findById(id);
-        if (toolsData.isPresent()) {
-            return new ResponseEntity<>(toolsData.get(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return toolsData.map(tools -> new ResponseEntity<>(tools, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 

@@ -1,24 +1,38 @@
 package backend.restapp.controller;
 
 import backend.restapp.model.Tools;
+import backend.restapp.repo.ToolsRepo;
 import backend.restapp.service.ToolsService;
 import org.assertj.core.api.AbstractBooleanAssert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ToolsControllerTest {
+    @MockBean
+    private ToolsRepo toolsRepo;
+
     @Autowired
     ToolsService toolsService;
     @Autowired
@@ -53,12 +67,27 @@ class ToolsControllerTest {
         abstractBooleanAssert.isTrue();
     }
 
-
     @Test
-    void update() {
+    void testDeleteTool() throws Exception {
+        when(this.toolsService.deleteTools(anyLong())).thenReturn(new ResponseEntity<HttpStatus>(HttpStatus.CONTINUE));
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/api/tools{id}", 123L);
+        ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(this.toolsController)
+                .build()
+                .perform(requestBuilder);
+        actualPerformResult.andExpect(MockMvcResultMatchers.status().is(100));
     }
 
     @Test
-    void deleteTool() {
+    void testGetAllTools() throws Exception {
+        when(this.toolsRepo.fgh(any())).thenReturn(1L);
+        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/toolAllDB");
+        MockMvcBuilders.standaloneSetup(this.toolsController)
+                .build()
+                .perform(requestBuilder)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content().string("1"));
     }
+
+
 }

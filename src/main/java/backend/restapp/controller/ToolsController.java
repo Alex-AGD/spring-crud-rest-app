@@ -1,5 +1,6 @@
 package backend.restapp.controller;
 
+import backend.restapp.dto.ToolsDto;
 import backend.restapp.model.Tools;
 import backend.restapp.service.ToolsService;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,12 @@ public class ToolsController {
         return toolsService.getAllTools(title);
     }
 
+    @GetMapping("/tools/dto")
+    public List<ToolsDto> getToolsDto(@RequestParam(required = false) String title) {
+//        return mappingUtils.toolsDtoList(toolsService.getAllToolsDto());
+        return null;
+    }
+
     @GetMapping("/tools/{id}")
     public ResponseEntity<Tools> getToolsById(@PathVariable("id") long id) {
         return toolsService.getToolByID(id);
@@ -42,7 +49,7 @@ public class ToolsController {
         return toolsService.updateTool(id, tools);
     }
 
-    @DeleteMapping("/tools{id}")
+    @DeleteMapping("/tools/{id}")
     public ResponseEntity<HttpStatus> deleteTool(@PathVariable("id") long id) {
         return toolsService.deleteTools(id);
     }

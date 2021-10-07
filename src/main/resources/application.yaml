@@ -1,0 +1,21 @@
+spring:
+  datasource:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/vue
+      username: agd
+      password: '123'
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    generate-ddl: false
+
+server:
+  port: 8081
+  error:
+    include-binding-errors: always
+    include-message: always
+
+bot:
+  username: 'AlexAGDBot'
+  token: '1970577997:AAGZthI0HJsvd_GZGyu6uJuw3RXNlkCI5mA'

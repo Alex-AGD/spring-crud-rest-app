@@ -1,20 +1,16 @@
 package backend.restapp.controller;
 
 import backend.restapp.model.Messages;
-import backend.restapp.model.Tools;
 import backend.restapp.repo.MessagesRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -49,7 +45,7 @@ public class MessagesController {
         try {
             Messages newMessage = messagesRepo.save(new Messages (
                     message.getMessage(),
-                    message.getCreationDate();
+                    message.getCreationDate()));
             return new ResponseEntity<>(newMessage, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

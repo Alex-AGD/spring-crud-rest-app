@@ -30,9 +30,7 @@ public class Messages {
         this.creationDate = creationDate;
         this.person = person;
     }
-
-    public Messages(String message,LocalDateTime creationDate) {
-        this.message = message;
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 

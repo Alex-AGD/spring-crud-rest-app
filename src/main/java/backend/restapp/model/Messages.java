@@ -1,7 +1,12 @@
 package backend.restapp.model;
 
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,9 +20,14 @@ import java.time.LocalDateTime;
 public class Messages {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(Views.IdName.class)
     private long id;
+    @JsonView(Views.IdName.class)
     private String message;
+
     @Column(updatable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonView(Views.FullMessage.class)
     private LocalDateTime creationDate;
 
     @ManyToOne(targetEntity = Person.class, fetch = FetchType.EAGER)

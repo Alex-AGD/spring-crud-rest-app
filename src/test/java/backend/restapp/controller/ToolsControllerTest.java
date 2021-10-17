@@ -79,7 +79,7 @@ class ToolsControllerTest {
 
     @Test
     void testGetAllTools() throws Exception {
-        when(this.toolsRepo.fgh(any())).thenReturn(1L);
+        when(this.toolsRepo.countHasName(any())).thenReturn(1L);
         MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/toolAllDB");
         MockMvcBuilders.standaloneSetup(this.toolsController)
                 .build()

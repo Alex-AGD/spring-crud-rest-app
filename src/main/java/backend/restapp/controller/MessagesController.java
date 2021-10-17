@@ -1,7 +1,9 @@
 package backend.restapp.controller;
 
 import backend.restapp.model.Messages;
+import backend.restapp.model.Views;
 import backend.restapp.repo.MessagesRepo;
+import com.fasterxml.jackson.annotation.JsonView;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ public class MessagesController {
     private final MessagesRepo messagesRepo;
 
     @GetMapping
+    @JsonView(Views.IdName.class)
     public ResponseEntity<List<Messages>> getAllMessages(@RequestParam(required = false) String title) {
         try {
             List<Messages> messagesList = new ArrayList<>();
@@ -30,6 +33,7 @@ public class MessagesController {
             if (messagesList.isEmpty()) {
                 new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
+            log.debug("ListUsers" + messagesList);
             return new ResponseEntity<>(messagesList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ToolsRepo extends JpaRepository<Tools, Long> {
@@ -13,6 +14,9 @@ public interface ToolsRepo extends JpaRepository<Tools, Long> {
     List<Tools> selectAll();
 
     @Query("select count(t) from Tools t where t.toolName like %:toolName%")
-    long fgh(@Param("toolName") String toolName);
+    long countHasName(@Param("toolName") String toolName);
+
+    @Query("select t from Tools t where upper(t.toolName) like upper(concat('%', ?1, '%'))")
+    Optional<Tools> dsf(String toolName);
 
 }

@@ -7,7 +7,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     generate-ddl: false
 
 server:
@@ -15,6 +15,18 @@ server:
   error:
     include-binding-errors: always
     include-message: always
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+      prefer-token-info: true
+    client:
+
+      accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+      userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+      clientAuthenticationScheme: form
+      scope: openid,email,profile
 
 bot:
   username: 'AlexAGDBot'

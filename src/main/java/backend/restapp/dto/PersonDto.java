@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PersonDto {
-    private long id;
+    private String id;
     private String email;
-    private String firstName;
+    private String userName;
     private String lastName;
     private String password;
 }

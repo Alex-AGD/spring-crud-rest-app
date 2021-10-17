@@ -16,10 +16,8 @@ public class PersonMapperImpl implements PersonMapper {
     public Person toPerson(PersonDto personDto) {
         Person person = new Person();
         person.setId(personDto.getId());
-        person.setFirstName(personDto.getFirstName());
-        person.setLastName(personDto.getLastName());
+        person.setUsername(personDto.getUserName());
         person.setEmail(personDto.getEmail());
-        person.setPassword(personDto.getPassword());
         return person;
     }
 
@@ -27,10 +25,8 @@ public class PersonMapperImpl implements PersonMapper {
     public PersonDto toPersonDto(Person person) {
         PersonDto personDto = new PersonDto();
         personDto.setId(person.getId());
-        personDto.setFirstName(person.getFirstName());
-        personDto.setLastName(person.getLastName());
+        personDto.setUserName(person.getUsername());
         personDto.setEmail(person.getEmail());
-        personDto.setPassword(person.getPassword());
         return personDto;
     }
 

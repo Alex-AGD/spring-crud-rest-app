@@ -25,7 +25,7 @@ security:
       registration:
       google:
       clientId: 253277319034-e8fm0o4enikcjrbrtg6bak3lelduc5kr.apps.googleusercontent.com
-      clientSecret: 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
+      clientSecret: ${clientSecret}
       accessTokenUri: https://www.googleapis.com/oauth2/v4/token
       userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
       clientAuthenticationScheme: form

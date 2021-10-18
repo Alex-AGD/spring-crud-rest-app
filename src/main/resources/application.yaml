@@ -7,7 +7,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     generate-ddl: false
 
 server:
@@ -22,7 +22,10 @@ security:
       user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
       prefer-token-info: true
     client:
-
+      registration:
+      google:
+      clientId: 253277319034-e8fm0o4enikcjrbrtg6bak3lelduc5kr.apps.googleusercontent.com
+      clientSecret: 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
       accessTokenUri: https://www.googleapis.com/oauth2/v4/token
       userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
       clientAuthenticationScheme: form

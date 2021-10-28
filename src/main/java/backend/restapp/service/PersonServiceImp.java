@@ -1,8 +1,8 @@
-package backend.restapp.service.Impl;
+package backend.restapp.service;
 
 import backend.restapp.model.Person;
 import backend.restapp.repo.PersonRepo;
-import backend.restapp.service.PersonService;
+import backend.restapp.service.impl.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

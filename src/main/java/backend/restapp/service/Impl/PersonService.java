@@ -1,4 +1,4 @@
-package backend.restapp.service;
+package backend.restapp.service.impl;
 
 import backend.restapp.model.Person;
 

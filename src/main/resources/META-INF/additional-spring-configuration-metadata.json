@@ -4,5 +4,31 @@
       "name": "hostname",
       "type": "java.lang.String",
       "description": "Description for hostname."
-  }
-] }
+    },
+    {
+      "name": "security.oauth2.client.registration.github.clientId",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.github.clientId."
+    },
+    {
+      "name": "security.oauth2.client.registration.github.clientSecret",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.github.clientSecret."
+    },
+    {
+      "name": "security.oauth2.client.registration.google.clientId",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.google.clientId."
+    },
+    {
+      "name": "security.oauth2.client.registration.google.clientSecret",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.google.clientSecret."
+    },
+    {
+      "name": "security.oauth2.client.registration.google.accessTokenUri",
+      "type": "java.lang.String",
+      "description": "Description for security.oauth2.client.registration.google.accessTokenUri."
+    }
+  ]
+}

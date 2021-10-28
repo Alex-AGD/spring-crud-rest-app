@@ -2,8 +2,7 @@ package backend.restapp.controller;
 
 import backend.restapp.dto.PersonDto;
 import backend.restapp.mappers.PersonMapper;
-import backend.restapp.service.PersonService;
-import org.springframework.http.ResponseEntity;
+import backend.restapp.service.impl.PersonService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

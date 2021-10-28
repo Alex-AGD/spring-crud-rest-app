@@ -23,14 +23,13 @@ security:
       prefer-token-info: true
     client:
       registration:
-      google:
+        google:
       clientId: 253277319034-e8fm0o4enikcjrbrtg6bak3lelduc5kr.apps.googleusercontent.com
       clientSecret: ${clientSecret}
       accessTokenUri: https://www.googleapis.com/oauth2/v4/token
       userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
       clientAuthenticationScheme: form
       scope: openid,email,profile
-
-bot:
-  username: 'AlexAGDBot'
-  token: '1970577997:AAGZthI0HJsvd_GZGyu6uJuw3RXNlkCI5mA'
+app:
+  jwtSecret: fdghasdfg
+  jwtExpirationMs: 300000

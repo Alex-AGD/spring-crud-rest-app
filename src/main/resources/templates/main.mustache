@@ -18,11 +18,11 @@
 <script type="text/javascript">
     let frontData = {{frontData}}
 
-            $.get("/user", function (data) {
-                $("#user").html(data.name);
-                $(".unauthenticated").hide()
-                $(".authenticated").show()
-            });
+    $.get("/user", function(data) {
+    $("#user").html(data.name);
+    $(".unauthenticated").hide()
+    $(".authenticated").show()
+    });
 </script>
 </body>
 

@@ -30,5 +30,4 @@
       "type": "java.lang.String",
       "description": "Description for security.oauth2.client.registration.google.accessTokenUri."
     }
-  ]
-}
+  ] }

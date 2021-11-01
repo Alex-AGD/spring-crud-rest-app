@@ -32,4 +32,4 @@ security:
       scope: openid,email,profile
 app:
   jwtSecret: fdghasdfg
-  jwtExpirationMs: 300000
+  jwtExpirationMs: 30000000

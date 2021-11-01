@@ -26,7 +26,10 @@ import java.time.LocalDateTime;
 @Configuration
 @EnableWebSecurity
 @EnableOAuth2Sso
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(
+        securedEnabled = true,
+        jsr250Enabled = true,
+        prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
@@ -61,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
+                .antMatchers("/api/test/**", "/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -70,11 +73,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PrincipalExtractor principalExtractor(PersonRepo personRepo) {
         return map -> {
-            Long id = (Long) map.get("sub");
-
-            Person person = personRepo.findById(id).orElseGet(() -> {
+            String email = (String) map.get("email");
+            Person person = personRepo.findByEmail(email).orElseGet(() -> {
                 Person newPerson = new Person();
-                newPerson.setId(id);
+
                 newPerson.setUsername((String) map.get("name"));
                 newPerson.setEmail((String) map.get("email"));
                 newPerson.setGender((String) map.get("gender"));

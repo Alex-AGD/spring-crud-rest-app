@@ -16,13 +16,6 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 <script type="text/javascript">
-    let frontData = {{frontData}}
-
-    $.get("/user", function(data) {
-    $("#user").html(data.name);
-    $(".unauthenticated").hide()
-    $(".authenticated").show()
-    });
 </script>
 </body>
 
@@ -30,14 +23,6 @@
     <h1>Spring-Boot API documentation version 0.1</h1>
 </div>
 
-<div class="container unauthenticated">
-    <div>
-        With GitHub: <a href="/oauth2/authorization/github">click here</a>
-    </div>
-    <div>
-        With Google: <a href="/login">click here</a>
-    </div>
-</div>
 <div class="container authenticated" style="display:none">
     Logged in as: <span id="user"></span>
 </div>

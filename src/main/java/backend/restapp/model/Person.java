@@ -34,6 +34,9 @@ public class Person {
     @Size(max = 120)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
+
     private String userPicture;
 
     private String gender;
@@ -127,5 +130,12 @@ public class Person {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 }

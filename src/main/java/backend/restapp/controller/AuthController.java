@@ -13,6 +13,8 @@ import backend.restapp.security.jwt.JwtUtils;
 import backend.restapp.service.UserDetailsImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +23,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -47,6 +52,37 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Bean
+    public PrincipalExtractor principalExtractor(PersonRepo personRepo, HttpServletResponse response) {
+        return map -> {
+            String email = (String) map.get("email");
+            Person person = personRepo.findByEmail(email).orElseGet(() -> {
+                Person newPerson = new Person();
+                newPerson.setUsername((String) map.get("name"));
+                newPerson.setEmail((String) map.get("email"));
+                newPerson.setGender((String) map.get("gender"));
+                newPerson.setLocale((String) map.get("locale"));
+                newPerson.setUserPicture((String) map.get("picture"));
+                return newPerson;
+            });
+            person.setLastVisitDate(LocalDateTime.now());
+
+            personRepo.save(person);
+            try {
+                response.sendRedirect("http://localhost:8080");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return person;
+        };
+    }
+
+    @GetMapping("/google")
+    public void githubCallback(HttpServletResponse response) throws IOException {
+        response.sendRedirect("http://localhost:8081/login");
+    }
+
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {

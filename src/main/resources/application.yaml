@@ -1,4 +1,18 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 253277319034-e8fm0o4enikcjrbrtg6bak3lelduc5kr.apps.googleusercontent.com
+            clientSecret: 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
+            accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+            userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+            clientAuthenticationScheme: form
+            scope: openid, https://www.googleapis.com/auth/userinfo.email, https://www.googleapis.com/auth/userinfo.profile
+            resource:
+              user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+              prefer-token-info: true
   datasource:
       driver-class-name: org.postgresql.Driver
       url: jdbc:postgresql://localhost:5432/vue
@@ -12,24 +26,15 @@ spring:
 
 server:
   port: 8081
+  servlet:
+    session:
+      cookie:
+        name: backend-session
   error:
     include-binding-errors: always
     include-message: always
 
-security:
-  oauth2:
-    resource:
-      user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
-      prefer-token-info: true
-    client:
-      registration:
-        google:
-      clientId: 253277319034-e8fm0o4enikcjrbrtg6bak3lelduc5kr.apps.googleusercontent.com
-      clientSecret: ${clientSecret}
-      accessTokenUri: https://www.googleapis.com/oauth2/v4/token
-      userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
-      clientAuthenticationScheme: form
-      scope: openid,email,profile
+
 app:
   jwtSecret: fdghasdfg
   jwtExpirationMs: 30000000
